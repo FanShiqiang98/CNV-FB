@@ -53,15 +53,6 @@ def get_scores(density, min_matrix, binHead, k):
         scores[i] = cur_sum
     return scores
 
-def boxplot(scores):
-    four = pd.Series(scores).describe()
-    Q1 = four['25%']
-    Q3 = four['75%']
-    IQR = Q3 - Q1
-    upper = Q3 + 0.75 * IQR
-    lower = Q1 - 0.75 * IQR
-    return upper
-
 def mad(scores):
     median = np.median(scores)
     b = 1.4826# 这个值应该是看需求加的，有点类似加大波动范围之类的
@@ -69,8 +60,6 @@ def mad(scores):
     lower_limit = median - (3* mad)
     upper_limit = median + (3* mad)
     return upper_limit
-
-def sta_score_realdata(groudtruth_path, result_start, result_end, result_type):
     ground_truth = pd.read_table(groudtruth_path)
     truth_type = ground_truth["variant type"].tolist()
     truth_start = ground_truth['start'].tolist()
@@ -113,7 +102,6 @@ def sta_score_realdata(groudtruth_path, result_start, result_end, result_type):
 
     return [precision, sensitivity]
 
-def sta_score_simdata(groudtruth_path, result_start, result_end):
     # ground_truth = pd.read_csv(groudtruth_path)
     # truth_start = ground_truth['binStart'].tolist()
     # truth_end = ground_truth['binEnd'].tolist()
